@@ -23,21 +23,20 @@ All of the instructions are used with PowerShell (PSVersion 5.1.19041.610)
 
 In order to run the container you'll need docker installed.
 
-* [Windows](https://docs.docker.com/windows/started)
-* [OS X](https://docs.docker.com/mac/started/)
-* [Linux](https://docs.docker.com/linux/started/)
+* [Docker for Windows](https://docs.docker.com/windows/started)
+* [Docker for OS X](https://docs.docker.com/mac/started/)
+* [Docker for Linux](https://docs.docker.com/linux/started/)
 
 ### Usage
 
 Clone the project and start the container
 1. <code>git clone https://github.com/sebastienbruno/crud-nestjs.git</code>
 2. <code>cd crud-nestjs</code>
-3. <code>docker-compose up dev
+3. <code>docker-compose up dev</code>
 
 ### Running the tests
 
-<code>docker-compose up test
-
+<code>docker-compose up test</code>
 
 ## Built With
 
@@ -49,7 +48,7 @@ Clone the project and start the container
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sebastienbruno/crud-nestjs/tags). 
+I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sebastienbruno/crud-nestjs/tags). 
 
 ## Authors
 
