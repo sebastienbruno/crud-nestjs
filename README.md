@@ -2,9 +2,9 @@
 
 This NestJS API allows you to get informations about barcode through the Open Food Facts API.
 The main services are protected by an authentification mode (json web token). 
-The firts step is to register an user (/register). 
-Then you have to log in (/login) with this user. In return of this service you will obtain a token. 
-Finally you can consume with this token the API's services and get informations about product thanks to its barcode (/products/<barcode>). 
+* The firts step is to register an user (/register). 
+* Then you have to log in (/login) with this user. In return of this service you will obtain a token. 
+* Finally you can consume with this token the API's services and get informations about product thanks to its barcode (/products/<barcode>). 
 
 
 ## Table of contents
