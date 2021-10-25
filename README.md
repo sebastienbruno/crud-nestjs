@@ -1,4 +1,4 @@
-# CRUD Nestjs
+# CRUD NestJS
 
 This NestJS API allows you to get informations about barcode through the Open Food Facts API.
 The main services are protected by an authentification mode (json web token). 
