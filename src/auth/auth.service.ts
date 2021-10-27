@@ -2,18 +2,21 @@ import { ConflictException, Injectable, NotFoundException, UnauthorizedException
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/user.model';
-import { NotFoundError } from 'rxjs';
+import * as bcrypt from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
       private usersService: UsersService,
-      private jwtService: JwtService
+      private jwtService: JwtService,
+      private configService: ConfigService
     ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(username);
-    if (user && user.password === pass) {
+    const passwordMatch = await bcrypt.compare(pass, user.password);
+    if (user && passwordMatch) {
       const { password, ...result } = user;
       return result;
     }
@@ -32,7 +35,8 @@ export class AuthService {
     if (user) {
       throw new ConflictException();
     }
-    const userId = this.usersService.insertUser( username, password );
+    const hash = await bcrypt.hash(password, 10);
+    const userId = this.usersService.insertUser( username, hash );
     return userId;
   }
 
