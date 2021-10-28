@@ -1,22 +1,23 @@
-import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/user.model';
 import * as bcrypt from 'bcrypt';
-import { ConfigService } from '@nestjs/config';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
       private usersService: UsersService,
       private jwtService: JwtService,
-      private configService: ConfigService
     ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(username);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
     const passwordMatch = await bcrypt.compare(pass, user.password);
-    if (user && passwordMatch) {
+    if (passwordMatch) {
       const { password, ...result } = user;
       return result;
     }
@@ -30,13 +31,14 @@ export class AuthService {
       };
   }
 
-  async register(username: string, password: string){
+  async register(createUserDto: CreateUserDto) {
+    const { username, password } = createUserDto;
     const user = await this.usersService.findOne(username);
     if (user) {
       throw new ConflictException();
     }
     const hash = await bcrypt.hash(password, 10);
-    const userId = this.usersService.insertUser( username, hash );
+    const userId = this.usersService.create( {username: username, password: hash} )
     return userId;
   }
 

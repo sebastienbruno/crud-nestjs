@@ -1,4 +1,5 @@
 import { BadRequestException, Body, Controller, Get, HttpCode, Post, Request, UseGuards } from '@nestjs/common';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 
@@ -12,15 +13,15 @@ export class AuthController {
     async login(@Request() req) {
       return await this.authService.login(req.user);
     }
-  
+
     @HttpCode(201)
     @Post('register')
-    async register(@Body('username') username, @Body('password') password) {
-      //const encryptPassword = ??
+    async register(@Body() createUserDto: CreateUserDto) {
+      const { username, password } = createUserDto;
       if(!username || !password) {
         throw new BadRequestException;
       }
-      const userId = await this.authService.register(username, password);
+      const userId = await this.authService.register(createUserDto);
       return null;
     }
 
