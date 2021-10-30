@@ -1,8 +1,8 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, ConsoleLogger, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,14 +12,22 @@ export class AuthService {
     ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
-    if (!user) {
-      throw new UnauthorizedException();
+    let user = null;
+    try {
+      user = await this.usersService.findOne(username);
+      if (!user) {
+        throw new UnauthorizedException();
+      }
+      if(pass && user.password) {
+        const passwordMatch = await bcrypt.compare(pass, user.password);
+        if (passwordMatch) {
+          const { password, ...result } = user;
+          return result;
+        }
+      }
     }
-    const passwordMatch = await bcrypt.compare(pass, user.password);
-    if (passwordMatch) {
-      const { password, ...result } = user;
-      return result;
+    catch(e) {
+      throw e;
     }
     return null;
   }
@@ -33,12 +41,30 @@ export class AuthService {
 
   async register(createUserDto: CreateUserDto) {
     const { username, password } = createUserDto;
-    const user = await this.usersService.findOne(username);
+    let user;
+    try {
+      user = await this.usersService.findOne(username);
+    }
+    catch(e) {
+      throw new NotFoundException(e);
+    }
     if (user) {
       throw new ConflictException();
     }
-    const hash = await bcrypt.hash(password, 10);
-    const userId = this.usersService.create( {username: username, password: hash} )
+    let hash;
+    try {
+      hash = await bcrypt.hash(password, 10);
+    }
+    catch(e) {
+      throw e;
+    }
+    let userId;
+    try {
+      userId = await this.usersService.create( {username: username, password: hash} );
+    }
+    catch (e) {
+      throw e;
+    }
     return userId;
   }
 

@@ -1,5 +1,5 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
+import { JwtAuthGuard } from '../auth/jwt-auth.guards';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -14,5 +14,3 @@ export class ProductsController {
     }
 
 }
-
-

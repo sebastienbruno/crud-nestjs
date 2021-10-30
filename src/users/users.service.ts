@@ -13,7 +13,15 @@ export class UsersService {
 
 
   async findOne(username: string): Promise<User | undefined> {
-    return await this.userModel.findOne({ username: username }) ;
+    let user;
+    try {
+      user = await this.userModel.findOne({ username: username }) ;
+    }
+    catch(e) {
+      console.log(`Unable to find user: ${username}`, e);
+      throw e;
+    }
+    return user;
   }
 
   async getAll(): Promise<User[]> {
