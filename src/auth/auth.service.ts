@@ -1,8 +1,9 @@
-import { ConflictException, ConsoleLogger, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, ConsoleLogger, Injectable, NotFoundException, ServiceUnavailableException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { User } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
     ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    let user = null;
+    let user;
     try {
       user = await this.usersService.findOne(username);
       if (!user) {
@@ -24,15 +25,17 @@ export class AuthService {
           const { password, ...result } = user;
           return result;
         }
+        else {
+          throw new UnauthorizedException();
+        }
       }
     }
     catch(e) {
       throw e;
     }
-    return null;
   }
 
-  async login(user: any) {
+  login(user: any) {
       const payload = { username: user.username, sub: user.userId };
       return {
           access_token: this.jwtService.sign(payload),
@@ -41,34 +44,27 @@ export class AuthService {
 
   async register(createUserDto: CreateUserDto) {
     const { username, password } = createUserDto;
-    let user;
+    let user: User;
     try {
       user = await this.usersService.findOne(username);
     }
     catch(e) {
-      throw new NotFoundException(e);
+      throw new ServiceUnavailableException(e, 'The register service is unavailable due to find service');
     }
     if (user) {
-      throw new ConflictException();
+      throw new ConflictException(`The user ${username} already exist`);
     }
-    let hash;
-    try {
-      hash = await bcrypt.hash(password, 10);
-    }
-    catch(e) {
-      throw e;
-    }
-    let userId;
-    try {
-      userId = await this.usersService.create( {username: username, password: hash} );
+   try {
+      const hash = await bcrypt.hash(password, 10);
+      user = await this.usersService.create( {username: username, password: hash} );
     }
     catch (e) {
-      throw e;
+      throw new ServiceUnavailableException(e, 'The register service is unavailable');
     }
-    return userId;
+    return user;
   }
 
   async getAllUsers(){
-    return this.usersService.getAll();
+    return await this.usersService.getAll();
   }
 } 
