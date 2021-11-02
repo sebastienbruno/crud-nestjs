@@ -3,7 +3,10 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUnauthorizedResponse } fro
 import { JwtAuthGuard } from '../auth/jwt-auth.guards';
 import { ProductsService } from './products.service';
 
-@Controller('products')
+@Controller({
+  path: 'products',
+  version: '1',
+})
 export class ProductsController {
     
   constructor(private productsService: ProductsService) {}
