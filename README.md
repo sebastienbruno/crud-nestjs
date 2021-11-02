@@ -46,6 +46,7 @@ Clone the project and start the container
 ### Running the tests
 
 <code>npm run test</code>
+<code>npm run test:e2e</code>
 
 ## Built With
 
