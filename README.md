@@ -21,7 +21,7 @@ All of the instructions are used with PowerShell (PSVersion 5.1.19041.610)
 
 ### Prerequisities
 
-In order to run the container you'll need docker installed.
+In order to run the container you'll need docker installed and started.
 
 * [Docker for Windows](https://docs.docker.com/windows/started)
 * [Docker for OS X](https://docs.docker.com/mac/started/)
@@ -36,7 +36,7 @@ Clone the project and start the container
 
 ### Running the tests
 
-<code>docker-compose up test</code>
+<code>npm run test</code>
 
 ## Built With
 

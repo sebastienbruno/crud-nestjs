@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { Model } from 'mongoose';
@@ -13,11 +13,19 @@ export class UsersService {
 
 
   async findOne(username: string): Promise<User | undefined> {
-    return await this.userModel.findOne({ username: username }) ;
+    let user;
+    try {
+      user = await this.userModel.findOne({ username: username }) ;
+    }
+    catch(e) {
+      throw new ServiceUnavailableException(e, 'The find service is unavailable');
+    }
+    return user;
   }
 
   async getAll(): Promise<User[]> {
-    return await this.userModel.find().exec();
+    const users = await this.userModel.find().exec();
+    return users;
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
