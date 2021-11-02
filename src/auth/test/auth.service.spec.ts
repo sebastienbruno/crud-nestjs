@@ -41,28 +41,19 @@ describe('AuthService', () => {
     }),
 
     create: jest.fn((dtoCreateUser: { username: string, password: string }) => {
-      let hash;
+      let user;
       if(dtoCreateUser.username && dtoCreateUser.password){
-        try {
-          const user = {
-            _id: Math.random(),
-            username: dtoCreateUser.username,
-            password: dtoCreateUser.password,
-            __v: 0,
-          };
-          return user;
-        }
-        catch (e) {
-          throw e;
-        }
+        user = {
+          _id: Math.random(),
+          username: dtoCreateUser.username,
+          password: dtoCreateUser.password,
+          __v: 0,
+        };
       }
-      else {
-        return null;
-      }
+      return user;
     })
-
-
   };
+
   let mockJwtService = {
     sign: jest.fn((payload) => {
       return 'lipsumlorem';
@@ -168,11 +159,15 @@ describe('AuthService', () => {
   });
 
   it('should return a list of users', () => {
-    expect.assertions(1);
+    expect.assertions(2);
     try {
-      return expect(service.getAllUsers())
+      const users = service.getAllUsers();
+      expect(users)
         .resolves
-        .toBeDefined
+        .toEqual(expect.anything());
+      expect(users)
+        .resolves.
+        toBeInstanceOf(Array);
     }
     catch(e) {
       throw e;

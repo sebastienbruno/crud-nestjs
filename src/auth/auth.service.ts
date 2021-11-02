@@ -65,6 +65,7 @@ export class AuthService {
   }
 
   async getAllUsers(){
-    return await this.usersService.getAll();
+    const users = await this.usersService.getAll();
+    return users;
   }
 } 

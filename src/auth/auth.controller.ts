@@ -47,6 +47,7 @@ export class AuthController {
       let users:User[];
       try {
         users = await this.authService.getAllUsers();
+        return users;
       }
       catch(e) {
         throw new ServiceUnavailableException(e, 'The service is unavailable');
