@@ -27,12 +27,20 @@ In order to run the container you'll need docker installed and started.
 * [Docker for OS X](https://docs.docker.com/mac/started/)
 * [Docker for Linux](https://docs.docker.com/linux/started/)
 
-### Usage
+### Usage with docker-compose
 
 Clone the project and start the container
 1. <code>git clone https://github.com/sebastienbruno/crud-nestjs.git</code>
 2. <code>cd crud-nestjs</code>
 3. <code>docker-compose up dev</code>
+4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
+
+### Usage with npm 
+
+Clone the project and start the container
+1. <code>git clone https://github.com/sebastienbruno/crud-nestjs.git</code>
+2. <code>cd crud-nestjs</code>
+3. <code>npm run start:dev</code>
 4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
 ### Running the tests
