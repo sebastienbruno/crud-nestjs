@@ -33,6 +33,7 @@ Clone the project and start the container
 1. <code>git clone https://github.com/sebastienbruno/crud-nestjs.git</code>
 2. <code>cd crud-nestjs</code>
 3. <code>docker-compose up dev</code>
+4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
 ### Running the tests
 

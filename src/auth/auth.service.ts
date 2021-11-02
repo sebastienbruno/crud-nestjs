@@ -52,7 +52,7 @@ export class AuthService {
       throw new ServiceUnavailableException(e, 'The register service is unavailable due to find service');
     }
     if (user) {
-      throw new ConflictException(`The user ${username} already exist`);
+      throw new ConflictException(`The user ${username} already exists`);
     }
    try {
       const hash = await bcrypt.hash(password, 10);
