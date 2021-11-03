@@ -45,8 +45,8 @@ Clone the project and start the container
 
 ### Running the tests
 
-<code>npm run test</code>
-<code>npm run test:e2e</code>
+* <code>npm run test</code>
+* <code>npm run test:e2e</code>
 
 ## Built With
 
@@ -63,3 +63,11 @@ I use [SemVer](http://semver.org/) for versioning. For the versions available, s
 ## Authors
 
 * **Sebastien BRUNO**
+
+## Next features
+
+* Add a logger system
+* Add a validation pipe 
+* Add user update feature
+* Add a caching system for Open Food Fact API
+* Add a deployment manifest Kubernetes 
