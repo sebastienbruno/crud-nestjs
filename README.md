@@ -40,7 +40,7 @@ Clone the project
 2. <code>cd crud-nestjs</code>
 
 ### Configuration
-Create a .env file with the properties below : 
+Create a .env file with the properties below and change with your own values : 
 * DATABASE_URI=mongodb+srv://[username]:[password]@[url]/[database]?retryWrites=true&w=majority
 * DATABASE_TEST_URI=mongodb+srv://[username]:[password]@[url]/[test_database]?retryWrites=true&w=majority
 * JWT_SECRET='your_secret'
@@ -48,16 +48,18 @@ Create a .env file with the properties below :
 
 ### Usage with docker-compose
 
-And start the container
+And start the container.
+
 3. <code>docker-compose up dev</code>
 4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
 ### Usage with npm 
 
-3. <code>npm run start:dev</code>
-4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
+3. <code>npm i</code>
+4. <code>npm run start:dev</code>
+5. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
-### Running the tests
+#### Running the tests
 
 * <code>npm run test</code>
 * <code>npm run test:e2e</code>
