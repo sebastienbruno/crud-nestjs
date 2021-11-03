@@ -15,6 +15,7 @@ export class ProductsController {
     @UseGuards(JwtAuthGuard)
     @ApiResponse({ status: 200, description: 'Success. Informations about the product are delivered' })
     @ApiResponse({ status: 401, description: 'Authentication is required and has failed or has not yet been provided' })
+    @ApiResponse({ status: 404, description: 'Product not found' })
     @ApiBearerAuth()
     @Get(':barcode')
     getProduct(@Param('barcode') barcode: number) {

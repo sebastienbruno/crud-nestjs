@@ -31,9 +31,10 @@ export class AuthController {
         }
       }
     })
-    @ApiResponse({ status: 200, description: 'The request has been fulfilled succesfully.' })
     @ApiResponse({ status: 401, description: 'Unauthorized.' })
     @ApiResponse({ status: 503, description: 'The server cannot handle the request.' })
+    @ApiResponse({ status: 200, description: 'The request has been fulfilled succesfully.' })
+    @HttpCode(200)
     async login(@Request() req) {
       let access_token;
       try { 
