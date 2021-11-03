@@ -41,8 +41,8 @@ Clone the project
 
 ### Configuration
 Create a .env file with the properties below : 
-* DATABASE_URI=mongodb+srv://[username]:[password]@<url>/<database>?retryWrites=true&w=majority
-* DATABASE_TEST_URI=mongodb+srv://<username>:<password>@<url>/<test_database>?retryWrites=true&w=majority
+* DATABASE_URI=mongodb+srv://[username]:[password]@[url]/[database]?retryWrites=true&w=majority
+* DATABASE_TEST_URI=mongodb+srv://[username]:[password]@[url]/[test_database]?retryWrites=true&w=majority
 * JWT_SECRET='your_secret'
 * JWT_EXPIRES_IN='10m'
 
