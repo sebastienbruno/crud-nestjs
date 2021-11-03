@@ -56,7 +56,7 @@ And start the container.
 ### Usage with npm 
 
 3. <code>npm i</code>
-4. <code>npm run start:dev</code>
+4. <code>npm run start</code>
 5. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
 #### Running the tests
