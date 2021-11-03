@@ -21,25 +21,39 @@ All of the instructions are used with PowerShell (PSVersion 5.1.19041.610)
 
 ### Prerequisities
 
-In order to run the container you'll need docker installed and started.
+#### Docker.
 
+In order to run the container you'll need docker installed and started
 * [Docker for Windows](https://docs.docker.com/windows/started)
 * [Docker for OS X](https://docs.docker.com/mac/started/)
 * [Docker for Linux](https://docs.docker.com/linux/started/)
 
-### Usage with docker-compose
+#### Database : You must have a MongoDB Cluster available
+You must have a MongoDB Cluster available
+* [See MongoDB Atlas](https://www.mongodb.com/atlas)
+* [Or use your account](https://account.mongodb.com/account/login?signedOut=true)
 
-Clone the project and start the container
+### Installation 
+
+Clone the project
 1. <code>git clone https://github.com/sebastienbruno/crud-nestjs.git</code>
 2. <code>cd crud-nestjs</code>
+
+### Configuration
+Create a .env file with the properties below : 
+* DATABASE_URI=mongodb+srv://[username]:[password]@<url>/<database>?retryWrites=true&w=majority
+* DATABASE_TEST_URI=mongodb+srv://<username>:<password>@<url>/<test_database>?retryWrites=true&w=majority
+* JWT_SECRET='your_secret'
+* JWT_EXPIRES_IN='10m'
+
+### Usage with docker-compose
+
+And start the container
 3. <code>docker-compose up dev</code>
 4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
 ### Usage with npm 
 
-Clone the project and start the container
-1. <code>git clone https://github.com/sebastienbruno/crud-nestjs.git</code>
-2. <code>cd crud-nestjs</code>
 3. <code>npm run start:dev</code>
 4. Once the application is running you can visit http://localhost:3000/api (or your env_url:env_port/api) to see the Swagger interface.
 
